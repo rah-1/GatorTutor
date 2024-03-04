@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Navbar } from "./navbar"
+import { ArrowLeftIcon } from "@heroicons/react/outline";
+
 
 export const Auth = () => {
     const [email, setEmail] = useState("");
@@ -15,6 +18,13 @@ export const Auth = () => {
         }
     };
     return (
+        <>
+        <Navbar />
+        <div className="container">
+            <h1 className="display-3" style={{ margin: 20 }}>
+            Admin Login
+            </h1>
+        </div>
         <div>
             <input
                 placeholder="Email..." 
@@ -27,5 +37,6 @@ export const Auth = () => {
             />
             <button onClick={signIn}>Sign In</button>
         </div>
+        </>
     )
 }

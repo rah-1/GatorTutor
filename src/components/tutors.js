@@ -1,5 +1,9 @@
 //import Dropdown from 'react-bootstrap/Dropdown';
 import { Navbar } from "./navbar"
+import Abhi from '../images/abhi.png';
+import Rah from '../images/rahjpg.jpg';
+import Siddhi from '../images/UF_SUPRATIK_ID__01.jpg';
+
 
 export const Tutors = () => {
   return (
@@ -35,7 +39,7 @@ export const Tutors = () => {
             </div>
             <img
               style={{ alignSelf: "center" }}
-              src="rahjpg.jpg"
+              src={Rah}
               alt="Team Member 1"
             />
           </div>
@@ -176,7 +180,7 @@ export const Tutors = () => {
             <div className=" d-flex justify-content-end">
               <span className="badge bg-dark">Class of 2028</span>
             </div>
-            <img src="UF_SUPRATIK_ID__01.jpg" alt="Team Member 1" />
+            <img src={Siddhi} alt="Team Member 2" />
           </div>
           <div
             className="row"
@@ -315,7 +319,7 @@ export const Tutors = () => {
             <div className=" d-flex justify-content-end">
               <span className="badge bg-dark">Class of 2024</span>
             </div>
-            <img src="abhi.png" alt="Team Member 1" />
+            <img src={Abhi} alt="Team Member 3" />
           </div>
           <div
             className="row"
