@@ -1,6 +1,26 @@
 import UF_Logo from '../images/uf.png';
+import { Link } from 'react-router-dom';
+import { auth } from "../config/firebase";
+import { useState, useEffect } from "react";
 
 export const Navbar = () => {
+  const [currentUserEmail, setCurrentUserEmail] = useState("Guest");
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          if (user.email === "cise_tutor@ufl.edu") {
+            setCurrentUserEmail("Tutor");
+          }
+          if (user.email === "cise_admin@ufl.edu") {
+            setCurrentUserEmail("Admin");
+          }
+        } else {
+            setCurrentUserEmail("Guest");
+        }
+    });
+
+    return () => unsubscribe();
+}, []);
     return (
         <>
         <link
@@ -61,43 +81,35 @@ export const Navbar = () => {
                 Enter Waitlist
               </a>
               <div className="dropdown-divider" />
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/waitlist">
                 View Waitlist{" "}
                 <span className="badge bg-primary rounded-pill ms-auto">4</span>
               </a>
             </div>
           </li>
           <li className="nav-item">
-            <a className="nav-link navop" href="#">
+            <a className="nav-link navop" href="/calendar">
               Calendar{" "}
             </a>
           </li>
           <li className="nav-item">
             <a
               className="nav-link navop"
-              href="#"
-              style={{ backgroundColor: "#f37021" }}
+              href="/tutors"
             >
               Tutors
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link navop" href="#">
+            <a className="nav-link navop" href="/resources">
               Resources
             </a>
           </li>
         </ul>
-        <form className="ms-auto d-flex form-inline pe-3 my-2">
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button className="btn btn-outline-success" type="submit">
-            Search
-          </button>
-        </form>
+        <Link to="#" className="nav-link navop ms-auto" style={{ paddingRight: "20px" }}>
+          Hi,  {currentUserEmail}!
+        </Link>
+        
         {/* 
                           <form class="ml-auto form-inline pr-3 my-2 my-lg-0">
                               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
