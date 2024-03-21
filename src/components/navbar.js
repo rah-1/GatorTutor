@@ -6,14 +6,13 @@ import { useState, useEffect } from "react";
 export const Navbar = () => {
   const [currentUserEmail, setCurrentUserEmail] = useState("Guest");
   useEffect(() => {
+    const authDict = {
+      "cise_tutor@ufl.edu": "Tutor",
+      "cise_admin@ufl.edu": "Admin"
+    };
     const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
-          if (user.email === "cise_tutor@ufl.edu") {
-            setCurrentUserEmail("Tutor");
-          }
-          if (user.email === "cise_admin@ufl.edu") {
-            setCurrentUserEmail("Admin");
-          }
+          setCurrentUserEmail(authDict[user.email]);
         } else {
             setCurrentUserEmail("Guest");
         }
