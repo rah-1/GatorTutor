@@ -57,10 +57,35 @@ export const Resources = () => {
       </li>
     </ul>
     <div className="tab-content">
-      <div id="about" className="tab-pane fade in ">
-        <p>The premier tutoring service... For Free.</p>
-      </div>
+    <div id="about" class="tab-pane fade in show active text-start">
+    <div style={{ height: "25px" }}></div>
+
+  <p><strong>Welcome to the CISE Academic Tutoring Center!</strong></p>
+  
+  <p>At the CISE Academic Tutoring Center, we're dedicated to supporting students like you as you navigate the complexities of computer science coursework at the University of Florida.</p>
+  
+  <p><strong>What We Offer:</strong></p>
+  
+  <p>We understand that the challenges of computer science courses can sometimes feel overwhelming. That's why we're here to offer you no-cost tutoring services tailored specifically to your needs. Whether you're grappling with algorithms, struggling with programming languages, or need guidance on complex concepts, our team of highly experienced undergraduate tutors is ready to assist you every step of the way.</p>
+  
+  <p><strong>Who Are Our Tutors:</strong></p>
+  
+  <p>Our tutors are not only academically proficient but also deeply passionate about helping their peers succeed. They are handpicked from the ranks of highly accomplished undergraduate students within the computer science department. With their in-depth understanding of the curriculum and their commitment to excellence, our tutors are equipped to provide you with the support and guidance you need to excel in your studies.</p>
+  
+  <p><strong>Why Choose Us:</strong></p>
+  
+  <p>The CISE Academic Tutoring Center isn't just a place to get help with your coursework—it's a community of learners dedicated to helping each other thrive. We believe that by fostering a supportive and collaborative environment, we can empower you to achieve your academic goals. Many students who have participated in our tutoring sessions have reported significant progress in their coursework, citing increased confidence, improved understanding of concepts, and better grades.</p>
+  
+  <p><strong>Get Started:</strong></p>
+  
+  <p>We highly encourage you to take advantage of our tutoring services. Whether you're struggling with a specific problem set, preparing for an exam, or simply seeking to deepen your understanding of course material, our tutors are here to help you succeed. Don't let academic challenges hold you back—join us at the CISE Academic Tutoring Center and take the first step toward academic excellence.</p>
+  <p></p>
+  <p>To get started, students can make tutoring session appointments or join the live waitlist. When making an appointment or joining the waitlist, students can specify the class or project they need help with and indicate any tutor preferences. Additionally, students can view information about each tutor on the Tutors page, including their language and class proficiency. For tutoring session availability and updates, students can refer to the interactive calendar on the Calendar page, which also provides contact information and availability updates for tutors.</p>
+</div>
+
       <div id="avail" className="tab-pane fade">
+      <div style={{ height: "25px" }}></div>
+
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
@@ -157,6 +182,8 @@ export const Resources = () => {
         </div>
       </div>
       <div id="course" className="tab-pane fade">
+      <div style={{ height: "25px" }}></div>
+
         <ul className="list-group text-start">
           <li className="list-group-item d-flex">
             Random Excuse Generation{" "}
@@ -207,6 +234,8 @@ export const Resources = () => {
         </table>
       </div>
     </div>
+    <div style={{ height: "100px" }}></div>
+
   </div>
 </>
 )}

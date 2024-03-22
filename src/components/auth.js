@@ -10,6 +10,7 @@ export const Auth = () => {
     const [password, setPassword] = useState("");
     const [loggedIn, setLoggedIn] = useState(false); // State to track login status
     const [loginError, setLoginError] = useState(null); // State to track login errors
+    const [loginMessage, setLoginMessage] = useState(null); // State to track login errors
 
     const signIn = async () => {
         try {
@@ -17,11 +18,22 @@ export const Auth = () => {
             console.log("Signed in successfully")
             setLoggedIn(true); // Update login status
             setLoginError(null); // Clear any previous login errors
+            setLoginMessage("Successfully logged in!")
         } catch(err) {
             console.error(err);
             setLoggedIn(false); // Update login status
             setLoginError("Invalid email or password. Please try again."); // Set login error message
         }
+    };
+    const signOut = async () => {
+        auth.signOut().then(function() {
+            console.log('Signed Out');
+            setLoggedIn(true); // Update login status
+            setLoginError(null); // Clear any previous login errors
+            setLoginMessage("Signed out successfully.")
+          }, function(error) {
+            console.error('Sign Out Error', error);
+          });
     };
     return (
         <>
@@ -42,7 +54,8 @@ export const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
             />
             <button onClick={signIn}>Sign In</button>
-            {loggedIn && <p style={{ color: 'green' }}>Successfully logged in!</p>}
+            <button onClick={signOut}>Sign Out</button>
+            {loggedIn && <p style={{ color: 'green' }}>{loginMessage}</p>}
             {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
         </div>
         </>
