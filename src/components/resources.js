@@ -97,7 +97,7 @@ export const Resources = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                How long does each tutoring session last for?
+                How long does each tutoring session last?
               </button>
             </h2>
             <div
@@ -106,10 +106,10 @@ export const Resources = () => {
               aria-labelledby="headingOne"
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body">
+              <div className="accordion-body" >
                 <strong>
                   You can specify the desired length of each session when you
-                  first enter waitlist. However, that time is not guaranteed
+                  first enter waitlist. However, that time is not guaranteed to be followed
                   depending on tutor demand and availability.
                 </strong>
               </div>
@@ -125,7 +125,7 @@ export const Resources = () => {
                 aria-expanded="false"
                 aria-controls="collapseTwo"
               >
-                Accordion Item #2
+                What subjects can tutors help with?
               </button>
             </h2>
             <div
@@ -135,15 +135,9 @@ export const Resources = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>This is the second item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <strong>All tutors are well-versed in each of the introductory computer science courses. For more advanced courses, please visit the Tutors page for specific tutor proficiency.
+                  </strong> 
+                
               </div>
             </div>
           </div>
@@ -157,7 +151,7 @@ export const Resources = () => {
                 aria-expanded="false"
                 aria-controls="collapseThree"
               >
-                Accordion Item #3
+                Can I ask for help with non-course-related work?
               </button>
             </h2>
             <div
@@ -167,15 +161,33 @@ export const Resources = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <strong> While the Academic Tutoring Center is intended for UF coursework, some tutors may be able to help with projects and concepts beyond the scope of the computer science curriculum.
+                  </strong> 
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingFour">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+              >
+                Can I ask for help with non-course-related work?
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingFour"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong> While the Academic Tutoring Center is intended for UF coursework, some tutors may be able to help with projects and concepts beyond the scope of the computer science curriculum.
+                  </strong> 
               </div>
             </div>
           </div>
