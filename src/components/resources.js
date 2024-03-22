@@ -1,70 +1,212 @@
+//import Dropdown from 'react-bootstrap/Dropdown';
 import { Navbar } from "./navbar"
+import Abhi from '../images/abhi.png';
+import Rah from '../images/rahjpg.jpg';
+import Siddhi from '../images/UF_SUPRATIK_ID__01.jpg';
+
+
 export const Resources = () => {
-    return (
-      <>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossOrigin="anonymous"
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html:
-              "\n.team-member {\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n  margin: 20px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n}\n.team-member row {\n  display: flex;\n}\n\n.nav-tabs .nav-item .nav-link{\n  padding-right: 0.75rem; /* Adjust the right margin */\n  padding-left: 0.75rem;\n  color: #00529b !important;\n}\n\n.team-member col {\n  flex: 1;\n  padding: 20px;\n}\n\n.grid {\n  display: grid;\n  grid-auto-rows: auto;\n  max-width: 100vw;\n  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n}\n.team-member img {\n  width: 50%;\n  height: 9.5rem;\n  border-radius: 50%;\n  margin-bottom: 10px;\n}\n\n.team-member .tab-content{\n  margin-top: 0.75rem;\n}\n\n.team-member h2 {\n  margin-top: 0;\n}\n\n.navop2 {\n  border: 3px solid black;\n}\n\n\n.logo {\n  width: 8% !important;\n  height: auto !important;\n}\n\n.test {\n  padding-left: 0px !important;\n  padding-top: 0px !important;\n  padding-bottom: 0px !important;\n  padding-right: 0px !important;\n}\n\n.pgtitle {\n  color: #00529b;\n}\n\n.cont {\n  align-items: stretch;\n}\n\n.item {\n  flex:  1;\n}\n\n.cont2 {\n  align-items: stretch;\n}\n\n.item2 {\n  flex:  1;\n  display: flex;\n  align-items: center;\n  flex-grow: 1;\n  width: 100%;\n}\n\n.navbar-color {\n  background: #00529b;\n}\n\n.navop {\n  margin-right: 30px;\n  border-radius: 6px;\n  color: #fff !important;\n  background-color: #00529b ;\n}\n\n.rounded-pill {\n  background-color: #00529b !important;\n}\n\n.navop:hover {\n  transition: 0s ;\n  background-color: #f37021 ;\n}\n\n.navop:active {\n  transition: 0s ;\n  background-color: rgba(243, 112, 33, 0.7);\n}\n\n.navbar {\n  font-weight: bold;\n}\n\n.badge.bg-dark {\n  background-color: #00529b !important;\n}\n\n.badge.btn.btn-outline-dark\n{\n  color: #00529b;\n  border-color: #00529b;\n}\n\n.badge.btn.btn-outline-dark:hover\n{\n  color: white;\n  background-color: #00529b;\n}\n\n.title-background {\n  background: white;\n}\n"
-          }}
-        />
-        <Navbar />
-        <div className="container-md" style={{ width: "70%" }}>
-          {/* List group */}
-          <ul className="nav nav-tabs">
-            <li className="nav-item ">
-              <a
-                data-bs-toggle="tab"
-                className="nav-link display-6 "
-                style={{ fontSize: "2rem" }}
-                aria-current="page"
-                href="#about"
+  return (
+    <>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossOrigin="anonymous"
+  />
+  <style
+    dangerouslySetInnerHTML={{
+      __html:
+        "\n.team-member {\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n  margin: 20px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n\n}\n.team-member row {\n  display: flex;\n}\n\n.nav-tabs .nav-item .nav-link{\npadding-right: 0.75rem; /* Adjust the right margin */\npadding-left: 0.75rem;\ncolor: #00529b !important;\n}\n\n.team-member col {\n  flex: 1;\n  padding: 20px;\n}\n.grid {\ndisplay: grid;\ngrid-auto-rows: auto;\nmax-width: 100vw;\ngrid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n}\n.team-member img {\n  width: 50%;\n  height: 9.5rem;\n  border-radius: 50%;\n  margin-bottom: 10px;\n}\n\n.team-member .tab-content{\n\nmargin-top: 0.75rem;\n\n}\n\n.team-member h2 {\n  margin-top: 0;\n}\n\n.navop2 {\nborder: 3px solid black;\n}\n\n\n.logo {\n  width: 8% !important;\n  height: auto !important;\n}\n\n.test {\n  padding-left: 0px !important;\n  padding-top: 0px !important;\n  padding-bottom: 0px !important;\n  padding-right: 0px !important;\n}\n\n.pgtitle {\n  color: #00529b;\n}\n\n.cont {\n  align-items: stretch;\n  }\n\n.item {\n  flex:  1;\n  /* Optional: Add additional styling as needed */\n  }\n\n.cont2 {\n  align-items: stretch;\n}\n\n.item2 {\n  flex:  1;\n  display: flex;\n  align-items: center;\n  flex-grow: 1;\n  width: 100%;\n  /* Optional: Add additional styling as needed */\n  }\n\n  .navbar-color {\n      background: #00529b;\n  }\n\n  .navop {\n  /* border: 2px solid black; */\n  margin-right: 30px;\n  border-radius: 6px;\n  color: #fff !important;\n  background-color: #00529b ;\n  \n  }\n\n  .rounded-pill {\n    background-color: #00529b !important;\n  }\n\n.navop:hover {\n transition: 0s ;\n background-color: #f37021 ;\n /* color: #00529b !important; */\n}\n\n.navop:active {\n /* background-color: #f37021; */\n transition: 0s ;\n background-color: rgba(243, 112, 33, 0.7);\n /* color: #00529b !important; */\n}\n\n.navbar {\n  \n  font-weight: bold;\n}\n\n.badge.bg-dark {\n\nbackground-color: #00529b !important;\n}\n\n.badge.btn.btn-outline-dark\n{\ncolor: #00529b;\nborder-color: #00529b;\n}\n\n.badge.btn.btn-outline-dark:hover\n{\ncolor: white;\nbackground-color: #00529b;\n}\n\n.title-background {\nbackground: white;\n}\n"
+    }}
+  />
+  <Navbar/>
+  <div className="container-md " style={{ width: "70%" }}>
+    {/* List group */}
+    <ul className="nav nav-tabs">
+      <li className="nav-item ">
+        <a
+          data-bs-toggle="tab"
+          className="nav-link display-6 "
+          style={{ fontSize: "2rem" }}
+          aria-current="page"
+          href="#about"
+        >
+          About
+        </a>
+      </li>
+      <li className="nav-item">
+        <a
+          data-bs-toggle="tab"
+          className="nav-link display-6 "
+          style={{ fontSize: "2rem" }}
+          href="#avail"
+        >
+          FAQs
+        </a>
+      </li>
+      <li className="nav-item">
+        <a
+          data-bs-toggle="tab"
+          className="nav-link display-6 "
+          style={{ fontSize: "2rem" }}
+          href="#course"
+        >
+          Contact
+        </a>
+      </li>
+    </ul>
+    <div className="tab-content">
+      <div id="about" className="tab-pane fade in ">
+        <p>The premier tutoring service... For Free.</p>
+      </div>
+      <div id="avail" className="tab-pane fade">
+        <div className="accordion" id="accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingOne">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
               >
-                About
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                data-bs-toggle="tab"
-                className="nav-link display-6 "
-                style={{ fontSize: "2rem" }}
-                href="#avail"
-              >
-                FAQs
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                data-bs-toggle="tab"
-                className="nav-link display-6 "
-                style={{ fontSize: "2rem" }}
-                href="#course"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-          <div className="tab-content">
-            <div id="about" className="tab-pane fade in">
-              <p className="mt-4 ml-2">
-                The premier tutoring service... For Free.
-              </p>
+                How long does each tutoring session last for?
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              className="accordion-collapse collapse "
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>
+                  You can specify the desired length of each session when you
+                  first enter waitlist. However, that time is not guaranteed
+                  depending on tutor demand and availability.
+                </strong>
+              </div>
             </div>
-            <div id="avail" className="tab-pane fade">
-              {/* Your FAQs content */}
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingTwo">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Accordion Item #2
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the second item's accordion body.</strong> It is
+                hidden by default, until the collapse plugin adds the
+                appropriate classes that we use to style each element. These
+                classes control the overall appearance, as well as the showing
+                and hiding via CSS transitions. You can modify any of this with
+                custom CSS or overriding our default variables. It's also worth
+                noting that just about any HTML can go within the{" "}
+                <code>.accordion-body</code>, though the transition does limit
+                overflow.
+              </div>
             </div>
-            <div id="course" className="tab-pane fade">
-              {/* Your contact content */}
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingThree">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                Accordion Item #3
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is
+                hidden by default, until the collapse plugin adds the
+                appropriate classes that we use to style each element. These
+                classes control the overall appearance, as well as the showing
+                and hiding via CSS transitions. You can modify any of this with
+                custom CSS or overriding our default variables. It's also worth
+                noting that just about any HTML can go within the{" "}
+                <code>.accordion-body</code>, though the transition does limit
+                overflow.
+              </div>
             </div>
           </div>
         </div>
-      </>
-    );
-  };
-  
+      </div>
+      <div id="course" className="tab-pane fade">
+        <ul className="list-group text-start">
+          <li className="list-group-item d-flex">
+            Random Excuse Generation{" "}
+            <span className="badge bg-primary rounded-pill ms-auto">TA</span>
+          </li>
+          <li className="list-group-item d-flex">
+            Bandwagoning{" "}
+            <span className="badge bg-primary rounded-pill ms-auto">TA</span>
+          </li>
+          <li className="list-group-item d-flex">
+            One Piece{" "}
+            <span className="badge bg-primary rounded-pill ms-auto">TA</span>
+          </li>
+          <li className="list-group-item">Entomology</li>
+          <li className="list-group-item">Elementary Math</li>
+        </ul>
+      </div>
+      <div id="lang" className="tab-pane fade">
+        <table className="table text-start">
+          <thead>
+            <tr>
+              <th scope="col">Language</th>
+              <th scope="col">Proficiency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>C++</td>
+              <td>☆☆☆☆☆ None</td>
+            </tr>
+            <tr>
+              <td>Java 🖉</td>
+              <td>★☆☆☆☆ Elementary</td>
+            </tr>
+            <tr>
+              <td>Python</td>
+              <td>☆☆☆☆☆ None</td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>☆☆☆☆☆ None</td>
+            </tr>
+            <tr>
+              <td>HTML/CSS</td>
+              <td>☆☆☆☆☆ None</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</>
+)}
