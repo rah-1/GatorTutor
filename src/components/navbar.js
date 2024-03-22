@@ -2,6 +2,9 @@ import UF_Logo from '../images/uf.png';
 import { Link } from 'react-router-dom';
 import { auth } from "../config/firebase";
 import { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 export const Navbar = () => {
   const [currentUserEmail, setCurrentUserEmail] = useState("Guest");
@@ -28,6 +31,24 @@ export const Navbar = () => {
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
     crossOrigin="anonymous"
   />
+  <link
+    href="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    rel="stylesheet"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossOrigin="anonymous"
+  />
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
+    rel="stylesheet"
+    integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+    crossOrigin="anonymous"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    rel="stylesheet"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossOrigin="anonymous"
+  />
   <style
     dangerouslySetInnerHTML={{
       __html:
@@ -39,7 +60,7 @@ export const Navbar = () => {
     <button
       className="navbar-toggler"
       type="button"
-      data-toggle="collapse"
+      data-bs-toggle="collapse"
       data-target="#navbarCollapse"
       aria-controls="navbarCollapse"
       aria-expanded="false"
@@ -69,7 +90,7 @@ export const Navbar = () => {
               href="#"
               id="navbarDropdown"
               role="button"
-              data-toggle="dropdown"
+              data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >

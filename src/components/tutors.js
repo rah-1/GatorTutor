@@ -14,6 +14,30 @@ export const Tutors = () => {
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
     crossOrigin="anonymous"
   />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossOrigin="anonymous"
+  />
+  <link
+    href="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    rel="stylesheet"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossOrigin="anonymous"
+  />
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
+    rel="stylesheet"
+    integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+    crossOrigin="anonymous"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    rel="stylesheet"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossOrigin="anonymous"
+  />
   <style
     dangerouslySetInnerHTML={{
       __html:
@@ -71,7 +95,7 @@ export const Tutors = () => {
             <ul className="nav nav-tabs">
               <li className="nav-item ">
                 <a
-                  data-toggle="tab"
+                  data-bs-toggle="tab"
                   className="nav-link "
                   aria-current="page"
                   href="#about"
@@ -80,17 +104,17 @@ export const Tutors = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#avail">
+                <a data-bs-toggle="tab" className="nav-link" href="#avail">
                   Availability
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#course">
+                <a data-bs-toggle="tab" className="nav-link" href="#course">
                   Courses
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#lang">
+                <a data-bs-toggle="tab" className="nav-link" href="#lang">
                   Languages
                 </a>
               </li>
@@ -210,7 +234,7 @@ export const Tutors = () => {
             <ul className="nav nav-tabs">
               <li className="nav-item ">
                 <a
-                  data-toggle="tab"
+                  data-bs-toggle="tab"
                   className="nav-link "
                   aria-current="page"
                   href="#about2"
@@ -219,17 +243,17 @@ export const Tutors = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#avail2">
+                <a data-bs-toggle="tab" className="nav-link" href="#avail2">
                   Availability
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#course2">
+                <a data-bs-toggle="tab" className="nav-link" href="#course2">
                   Courses
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#lang2">
+                <a data-bs-toggle="tab" className="nav-link" href="#lang2">
                   Languages
                 </a>
               </li>
@@ -349,7 +373,7 @@ export const Tutors = () => {
             <ul className="nav nav-tabs">
               <li className="nav-item  ">
                 <a
-                  data-toggle="tab"
+                  data-bs-toggle="tab"
                   className="nav-link "
                   aria-current="page"
                   href="#about3"
@@ -358,17 +382,17 @@ export const Tutors = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#avail3">
+                <a data-bs-toggle="tab" className="nav-link" href="#avail3">
                   Availability
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#course3">
+                <a data-bstoggle="tab" className="nav-link" href="#course3">
                   Courses
                 </a>
               </li>
               <li className="nav-item">
-                <a data-toggle="tab" className="nav-link" href="#lang3">
+                <a data-bstoggle="tab" className="nav-link" href="#lang3">
                   Languages
                 </a>
               </li>
