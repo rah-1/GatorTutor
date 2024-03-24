@@ -140,7 +140,7 @@ export const Navbar = () => {
             </a>
           </li>
         </ul>
-        <Link to="/" className="nav-link navop ms-auto" style={{ paddingRight: "20px" }}>
+        <Link to="/auth" className="nav-link navop ms-auto" style={{ paddingRight: "20px" }}>
           Hi,  {currentUserEmail}!
         </Link>
         
