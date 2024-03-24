@@ -86,7 +86,83 @@ export const Resources = () => {
       <div id="avail" className="tab-pane fade">
       <div style={{ height: "25px" }}></div>
 
-        <div className="accordion" id="accordionExample">
+      <div className="accordion" id="accordionExample">
+        <div className="accordion-item">
+            <h2 className="accordion-header" id="headingFour">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+              >
+                Are tutoring services free of charge?
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingFour"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>Yes! All services are free of charge to UF students.
+                  </strong> 
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingFive">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFive"
+                aria-expanded="false"
+                aria-controls="collapseFive"
+              >
+                When is the CISE Academic Tutoring Center open for tutoring?
+              </button>
+            </h2>
+            <div
+              id="collapseFive"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingFive"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>The CISE Academic Tutoring Center is open weekdays from 12pm-8pm. In person tutoring takes place on Mondays and Fridays, and online tutoring happens on Tuesdays, Wednesdays, and Thursdays.
+                  </strong> 
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingSix">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseSix"
+                aria-expanded="false"
+                aria-controls="collapseSix"
+              >
+                Where is the CISE Academic Tutoring Center located?
+              </button>
+            </h2>
+            <div
+              id="collapseSix"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingSix"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>The CISE Academic Tutoring Center is located at MALA 5200 and is open for in-person tutoring on Mondays and Fridays and online tutoring from Tuesday-Thursday.
+                  </strong> 
+              </div>
+            </div>
+          </div>
+        </div>
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
@@ -166,86 +242,59 @@ export const Resources = () => {
               </div>
             </div>
           </div>
+          
           <div className="accordion-item">
-            <h2 className="accordion-header" id="headingFour">
+            <h2 className="accordion-header" id="headingSeven">
               <button
                 className="accordion-button collapsed"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapseFour"
+                data-bs-target="#collapseSeven"
                 aria-expanded="false"
-                aria-controls="collapseFour"
+                aria-controls="collapseSeven"
               >
-                Can I ask for help with non-course-related work?
+                How many tutors work for the Academic Tutoring Center?
               </button>
             </h2>
             <div
-              id="collapseFour"
+              id="collapseSeven"
               className="accordion-collapse collapse"
-              aria-labelledby="headingFour"
+              aria-labelledby="headingSeven"
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong> While the Academic Tutoring Center is intended for UF coursework, some tutors may be able to help with projects and concepts beyond the scope of the computer science curriculum.
+                <strong> Currently, there are 7 tutors in junior or senior class standing working for the Academic Tutoring Center.
                   </strong> 
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div id="course" className="tab-pane fade">
-      <div style={{ height: "25px" }}></div>
 
-        <ul className="list-group text-start">
-          <li className="list-group-item d-flex">
-            Random Excuse Generation{" "}
-            <span className="badge bg-primary rounded-pill ms-auto">TA</span>
-          </li>
-          <li className="list-group-item d-flex">
-            Bandwagoning{" "}
-            <span className="badge bg-primary rounded-pill ms-auto">TA</span>
-          </li>
-          <li className="list-group-item d-flex">
-            One Piece{" "}
-            <span className="badge bg-primary rounded-pill ms-auto">TA</span>
-          </li>
-          <li className="list-group-item">Entomology</li>
-          <li className="list-group-item">Elementary Math</li>
-        </ul>
+          
+      
       </div>
-      <div id="lang" className="tab-pane fade">
-        <table className="table text-start">
-          <thead>
-            <tr>
-              <th scope="col">Language</th>
-              <th scope="col">Proficiency</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>C++</td>
-              <td>☆☆☆☆☆ None</td>
-            </tr>
-            <tr>
-              <td>Java 🖉</td>
-              <td>★☆☆☆☆ Elementary</td>
-            </tr>
-            <tr>
-              <td>Python</td>
-              <td>☆☆☆☆☆ None</td>
-            </tr>
-            <tr>
-              <td>JavaScript</td>
-              <td>☆☆☆☆☆ None</td>
-            </tr>
-            <tr>
-              <td>HTML/CSS</td>
-              <td>☆☆☆☆☆ None</td>
-            </tr>
-          </tbody>
-        </table>
+      <div id="course" className="tab-pane fade" class="tab-pane fade in show active text-start">
+      <div style={{ height: "25px" }}></div>
+      <p>
+  <strong>Contact the CISE Academic Tutoring Center</strong>
+</p>
+
+<p>
+  Please feel free to reach out to the Academic Tutoring Center with any questions, comments, or concerns by emailing{" "}
+  <a href="mailto:jessicamccarty@ufl.edu">jessicamccarty@ufl.edu</a>.
+</p>
+
+<p>
+  Find more information about CISE student resources{" "}
+  <a href="https://www.cise.ufl.edu/academics/undergraduate/student-resources/">
+    here
+  </a>.
+</p>
+
+        
       </div>
+      
     </div>
+    
     <div style={{ height: "100px" }}></div>
 
   </div>

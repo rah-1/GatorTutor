@@ -18,10 +18,14 @@ export const Auth = () => {
             console.log("Signed in successfully")
             setLoggedIn(true); // Update login status
             setLoginError(null); // Clear any previous login errors
-            setLoginMessage("Successfully logged in!")
+            setLoginMessage("Successfully logged in!");
+            // Clear email and password fields
+            setEmail("");
+            setPassword("");
         } catch(err) {
             console.error(err);
             setLoggedIn(false); // Update login status
+            setPassword("");
             setLoginError("Invalid email or password. Please try again."); // Set login error message
         }
     };
@@ -30,7 +34,10 @@ export const Auth = () => {
             console.log('Signed Out');
             setLoggedIn(true); // Update login status
             setLoginError(null); // Clear any previous login errors
-            setLoginMessage("Signed out successfully.")
+            setLoginMessage("Signed out successfully.");
+            // Clear email and password fields
+            setEmail("");
+            setPassword("");
           }, function(error) {
             console.error('Sign Out Error', error);
           });
@@ -46,11 +53,13 @@ export const Auth = () => {
         <div>
             <input
                 placeholder="Email..." 
+                value={email} // Bind value to email state
                 onChange={(e) => setEmail(e.target.value)}
             />
             <input
                 placeholder="Password..." 
                 type="password"
+                value={password} // Bind value to password state
                 onChange={(e) => setPassword(e.target.value)}
             />
             <button onClick={signIn}>Sign In</button>
