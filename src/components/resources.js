@@ -27,7 +27,7 @@ export const Resources = () => {
       <li className="nav-item ">
         <a
           data-bs-toggle="tab"
-          className="nav-link display-6 "
+          className="nav-link active display-6 "
           style={{ fontSize: "2rem" }}
           aria-current="page"
           href="#about"
@@ -57,7 +57,7 @@ export const Resources = () => {
       </li>
     </ul>
     <div className="tab-content">
-    <div id="about" class="tab-pane fade in show active text-start">
+    <div id="about" class="tab-pane active text-start">
     <div style={{ height: "25px" }}></div>
 
   <p><strong>Welcome to the CISE Academic Tutoring Center!</strong></p>
@@ -162,7 +162,7 @@ export const Resources = () => {
               </div>
             </div>
           </div>
-        </div>
+        
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
@@ -170,7 +170,7 @@ export const Resources = () => {
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseOne"
-                aria-expanded="true"
+                aria-expanded="false"
                 aria-controls="collapseOne"
               >
                 How long does each tutoring session last?
@@ -178,7 +178,7 @@ export const Resources = () => {
             </h2>
             <div
               id="collapseOne"
-              className="accordion-collapse collapse "
+              className="accordion-collapse collapse"
               aria-labelledby="headingOne"
               data-bs-parent="#accordionExample"
             >
@@ -268,11 +268,11 @@ export const Resources = () => {
               </div>
             </div>
           </div>
-
+          </div>
           
       
       </div>
-      <div id="course" className="tab-pane fade" class="tab-pane fade in show active text-start">
+      <div id="course" className="tab-pane fade" class="tab-pane fade text-start">
       <div style={{ height: "25px" }}></div>
       <p>
   <strong>Contact the CISE Academic Tutoring Center</strong>
