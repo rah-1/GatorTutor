@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Test from './components/test';
 import { ViewWaitlist } from './components/view_waitlist';
 import { EnterWaitlist } from './components/enter_waitlist';
+import { Waitlist } from './components/view_waitlist2';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
           <Route path="/calendar" element={<Example />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/waitlist2" element={<Waitlist />} />
         </Routes>
       </Router>
     </div>
