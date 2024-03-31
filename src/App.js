@@ -9,6 +9,7 @@ import { ViewWaitlist } from './components/view_waitlist';
 import { EnterWaitlist } from './components/enter_waitlist';
 import { Waitlist } from './components/view_waitlist2';
 import {Tutors2} from './components/tutors2';
+import {Tutors3} from './components/tutors3';
 function App() {
   return (
     <div className="App">
@@ -23,6 +24,7 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/waitlist2" element={<Waitlist />} />
           <Route path="/tutors2" element={<Tutors2 />} />
+          <Route path="/tutors3" element={<Tutors3 />} />
         </Routes>
       </Router>
     </div>
