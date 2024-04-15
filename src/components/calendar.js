@@ -1,47 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
-import { Navbar } from "./navbar"
-
+import { Navbar } from "./navbar";
 
 function Calendar() {
+  const getCurrentDate = () => {
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    return new Date().toLocaleDateString('en-US', options);
+  };
+
+  const [currDay, setCurrDay] = useState(getCurrentDate());
   return (
     <>
-    <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-    crossOrigin="anonymous"
-  />
-  <style
-    dangerouslySetInnerHTML={{
-      __html:
-        "\n.team-member {\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n  margin: 20px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n\n}\n.team-member row {\n  display: flex;\n}\n\n.nav-tabs .nav-item .nav-link{\npadding-right: 0.75rem; /* Adjust the right margin */\npadding-left: 0.75rem;\ncolor: #00529b !important;\n}\n\n.team-member col {\n  flex: 1;\n  padding: 20px;\n}\n.grid {\ndisplay: grid;\ngrid-auto-rows: auto;\nmax-width: 100vw;\ngrid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n}\n.team-member img {\n  width: 50%;\n  height: 9.5rem;\n  border-radius: 50%;\n  margin-bottom: 10px;\n}\n\n.team-member .tab-content{\n\nmargin-top: 0.75rem;\n\n}\n\n.team-member h2 {\n  margin-top: 0;\n}\n\n.navop2 {\nborder: 1px solid black;\n}\n\n\n.logo {\n  width: 8% !important;\n  height: auto !important;\n}\n\n.waitlist > * {\n  text-align: center;\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n  border: 1px solid black;\n}\n\n.waitlist {\n  margin-top: 0.5rem;\n  border-radius: 6px;\n}\n\n.test {\n  padding-left: 0px !important;\n  padding-top: 0px !important;\n  padding-bottom: 0px !important;\n  padding-right: 0px !important;\n}\n\n.pgtitle {\n  color: #00529b;\n}\n\n.cont {\n  align-items: stretch;\n  }\n\n.item {\n  flex:  1;\n  /* Optional: Add additional styling as needed */\n  }\n\n.cont2 {\n  align-items: stretch;\n}\n\n.item2 {\n  flex:  1;\n  display: flex;\n  align-items: center;\n  flex-grow: 1;\n  width: 100%;\n  /* Optional: Add additional styling as needed */\n  }\n\n  .navbar-color {\n      background: #00529b;\n  }\n\n  .navop {\n  /* border: 2px solid black; */\n  margin-right: 30px;\n  border-radius: 6px;\n  color: #fff !important;\n  background-color: #00529b ;\n  \n  }\n\n  .rounded-pill {\n    background-color: #00529b !important;\n  }\n\n.navop:hover {\n transition: 0s ;\n background-color: #f37021 ;\n /* color: #00529b !important; */\n}\n\n.navop:active {\n /* background-color: #f37021; */\n transition: 0s ;\n background-color: rgba(243, 112, 33, 0.7);\n /* color: #00529b !important; */\n}\n\n.navbar {\n  \n  font-weight: bold;\n}\n\n.badge.bg-dark {\n\nbackground-color: #00529b !important;\n}\n\n.badge.btn.btn-outline-dark\n{\ncolor: #00529b;\nborder-color: #00529b;\n}\n\n.badge.btn.btn-outline-dark:hover\n{\ncolor: white;\nbackground-color: #00529b;\n}\n\n.title-background {\nbackground: white;\n}\n"
-    }}
-  />
-  <Navbar/>
-    <div>
-      <Fullcalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView={"dayGridMonth"}
-        headerToolbar={{
-          start: "today prev,next", // will normally be on the left. if RTL, will be on the right
-          center: "title",
-          end: "dayGridMonth,timeGridWeek,timeGridDay", // will normally be on the right. if RTL, will be on the left
-        }}
-        height={"90vh"}
-        events={[
-          { title: 'event 1', date: '2024-04-01' },
-          { title: 'event 2', date: '2019-04-02' }
-        ]}
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossOrigin="anonymous"
       />
-    </div>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .calendar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .calendar-column {
+            width: 90%;
+            margin-right: 20px;
+            padding-top: 10px;
+          }
+
+          .textbox-column {
+            flex: 1;
+          }
+          `
+        }}
+      />
+      <Navbar />
+      <div className="container mt-4">
+      <div className="row">
+          <div className="col-12">
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-8 calendar-container">
+            <div className="calendar-column">
+              <Fullcalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                initialView={"dayGridMonth"}
+                headerToolbar={{
+                  start: "today prev,next",
+                  center: "title",
+                  end: "dayGridMonth,timeGridWeek,timeGridDay",
+                }}
+                height={"90vh"}
+                events={[
+                  { title: "event 1", date: "2024-04-01" },
+                  { title: "event 2", date: "2019-04-02" }
+                ]}
+              />
+            </div>
+          </div>
+          <div className="col-4 textbox-column">
+            <h1 className="display-5" style={{ margin: 20 }}>
+              Availability on {currDay}
+            </h1>
+          </div>
+        </div>
+      </div>
     </>
   );
-  
 }
 
 export default Calendar;
