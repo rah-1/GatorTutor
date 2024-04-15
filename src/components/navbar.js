@@ -9,7 +9,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 export const Navbar = () => {
   const location = useLocation();
 
-  const [currentUserEmail, setCurrentUserEmail] = useState("Guest");
+  const [currentUserEmail, setCurrentUserEmail] = useState("Student");
   useEffect(() => {
     const authDict = {
       "cise_tutor@ufl.edu": "Tutor",
@@ -19,7 +19,7 @@ export const Navbar = () => {
         if (user) {
           setCurrentUserEmail(authDict[user.email]);
         } else {
-            setCurrentUserEmail("Guest");
+            setCurrentUserEmail("Student");
         }
     });
 
