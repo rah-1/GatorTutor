@@ -97,7 +97,7 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{ backgroundColor: location.pathname === 'waitlist' ? "#f37021" : "" }}
+              style={{ backgroundColor: location.pathname === '/' || location.pathname === '/waitlist' ? "#f37021" : "" }}
             >
               Waitlist{" "}
             </a>
