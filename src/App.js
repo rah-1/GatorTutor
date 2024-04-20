@@ -10,6 +10,7 @@ import { EnterWaitlist } from './components/enter_waitlist';
 import { Waitlist } from './components/view_waitlist2';
 import {Tutors2} from './components/tutors2';
 import {Tutors3} from './components/tutors3';
+import EditCalendar from './components/edit_calendar';
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
           <Route path="/waitlist" element={<ViewWaitlist />} />
           <Route path="/tutors" element={<Tutors />} />
           <Route path="/calendar" element={<Example />} />
+          <Route path="/edit-calendar" element={<EditCalendar />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/test" element={<Test />} />
           <Route path="/waitlist2" element={<Waitlist />} />
