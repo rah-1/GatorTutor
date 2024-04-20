@@ -5,12 +5,20 @@ import { Navbar } from "./navbar";
 import { auth } from "../config/firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { db } from "../config/firebase";
+import { Timestamp, doc, updateDoc, addDoc, collection } from 'firebase/firestore'; // Importing Timestamp directly from firestore module
+
+
+
 
 function EditCalendar() {
     const [currentUserEmail, setCurrentUserEmail] = useState("Student");
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [holiday, setHoliday] = useState(null); // New state for single holiday selection
+    const [selectedTutor, setSelectedTutor] = useState(null); // State variable for selected tutor
+    const [availabilityReason, setAvailabilityReason] = useState(null); // State variable for availability change reason
+
 
     const handleChange = (dates) => {
         const [start, end] = dates;
@@ -37,16 +45,135 @@ function EditCalendar() {
     const isTutor = currentUserEmail === "Tutor";
 
     const handleSaveClick = () => {
-        toast.success("Changes saved successfully!", {
-            position: "bottom-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+        if (isAdmin) {
+            if (startDate && endDate) {
+                const calendarSettingsRef = doc(db, "operational_dates", "YHnd5VDYpS3kStkbREi1");
+    
+                updateDoc(calendarSettingsRef, {
+                    startDate: Timestamp.fromDate(new Date(startDate)),
+                    endDate: Timestamp.fromDate(new Date(endDate))
+                })
+                .then(() => {
+                    if (!holiday) {
+                    toast.success("Changes saved successfully!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+                })
+                .catch(error => {
+                    toast.error("Error saving changes: " + error.message, {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                });
+            }
+            if (holiday) {
+                const holidaysRef = collection(db, "holidays");
+    
+                addDoc(holidaysRef, {
+                    date: Timestamp.fromDate(new Date(holiday))
+                })
+                .then(() => {
+                    toast.success("Changes saved successfully!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+                .catch(error => {
+                    toast.error("Error adding holiday: " + error.message, {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                });
+            }
+            else {
+                toast.info("Please add a tutoring holiday or adjust semester tutoring dates(s) before saving.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } else if (isTutor) {
+            if (selectedTutor && availabilityReason && startDate && endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                let date = new Date(start); // Start from the start date
+                let one_suc = true;
+                while (date <= end) {
+                    const updatesRef = collection(db, "avail_updates");
+        
+                    addDoc(updatesRef, {
+                        change: availabilityReason,
+                        name: selectedTutor,
+                        date: Timestamp.fromDate(new Date(date)) // Use a new Date object to ensure immutability
+                    }).then(() => {
+                        if (one_suc) 
+                        {
+                            one_suc = false;
+                        toast.success(`Availability updated successfully!`, {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    }
+                    }).catch(error => {
+                        toast.error(`Error updating availability: ${error.message}`, {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    });
+        
+                    date.setDate(date.getDate() + 1); // Move to the next day
+                }
+            }
+        }
     };
+    
+    
+    
+
+    const handleTutorChange = (event) => {
+        setSelectedTutor(event.target.value); // Update selected tutor state
+    };
+    
+    const handleReasonChange = (event) => {
+        setAvailabilityReason(event.target.value); // Update availability reason state
+    };
+    
 
     return (
         <>
@@ -72,6 +199,15 @@ function EditCalendar() {
                     background-color: #28a745; /* Green background on hover */
                     border-color: #28a745; /* Green border on hover */
                 }
+
+                .form-select {
+                    width: 200px; /* Adjust the width as needed */
+                    padding-bottom: 100px; /* Add bottom padding */
+                }
+
+                .datepicker-spacing {
+                    margin-bottom: 20px; /* Add space here */
+                }
                   
                   `
             }}
@@ -86,7 +222,7 @@ function EditCalendar() {
                         <h2 className="text-center">Admin Panel</h2>
                         {isAdmin ? (
                             <>
-                                <p>Change tutoring date range for this semester:</p>
+                                <p>Change tutoring date range for the semester:</p>
                                 <DatePicker
                                     selected={startDate}
                                     onChange={handleChange}
@@ -96,7 +232,8 @@ function EditCalendar() {
                                     customInput={<CustomInput />}
                                     monthsShown={2}
                                 />
-                                <p>Add tutoring holidays:</p>
+                                <div className="datepicker-spacing"></div> {/* Add space here */}
+                                <p>Add tutoring holiday:</p>
                                 <DatePicker
                                     selected={holiday}
                                     onChange={handleHolidayChange}
@@ -111,12 +248,22 @@ function EditCalendar() {
                         )}
                     </div>
                 </div>
-                <div className={`col-md-6 ${!isAdmin && !isTutor && "bg-light"}`}>
-                    <div className={`panel rounded border p-3 mb-3 ${!isAdmin && !isTutor && "opacity-50"}`}>
-                        <h2 className="text-center">Tutors Panel</h2>
-                        {isAdmin || isTutor ? (
+                <div className={`col-md-6 ${!isTutor && "bg-light opacity-50"}`}>
+                <div className="panel rounded border p-3 mb-3">
+                <h2 className="text-center">Tutors Panel</h2>
+                        {!isAdmin || isTutor ? (
                             <>
                                 <p>Change tutor availability:</p>
+                                <select className="form-select" id="inputGroupSelect01" style={{ width: '75%', margin: 'auto' }} onChange={handleTutorChange}>
+                                    <option value="" selected disabled>Select tutor</option>
+                                    <option value={"Boe Zoe"}>Boe Zoe</option>
+                                    <option value={"Abby Pen"}>Abby Pen</option>
+                                    <option value={"Rahul Chari"}>Rahul Chari</option>
+                                </select>
+
+                                <input type="text" className="form-control mt-2" placeholder="Describe availability change" style={{ width: '75%', margin: 'auto' }} onChange={handleReasonChange} />
+
+                                <div style={{ marginBottom: '20px' }}></div>
                                 <DatePicker
                                     selected={startDate}
                                     onChange={handleChange}
@@ -125,16 +272,18 @@ function EditCalendar() {
                                     selectsRange
                                     customInput={<CustomInput />}
                                     monthsShown={2}
-                                />
-                                <div className="text-end">
-                                    <button className="btn btn-outline-dark ms-auto" onClick={handleSaveClick}>Save Changes</button>
-                                </div>
-                            </>
-                        ) : (
-                            <p className="text-muted">Tutor-only features and settings</p>
-                        )}
-                    </div>
+                                />  
+                
+                <div className="text-end">
+                    <button className="btn btn-outline-dark ms-auto" onClick={handleSaveClick}>Save Changes</button>
                 </div>
+            </>
+        ) : (
+            <p className="text-muted">Tutor-only features and settings</p>
+        )}
+    </div>
+</div>
+
             </div>
           </div>
         </>

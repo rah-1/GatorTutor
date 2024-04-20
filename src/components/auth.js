@@ -9,12 +9,16 @@ export const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loggedIn, setLoggedIn] = useState(false); // State to track login status
+    const authDict = {
+        "cise_tutor@ufl.edu": "tutor",
+        "cise_admin@ufl.edu": "admin"
+      };
 
     const signIn = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setLoggedIn(true); // Update login status
-            toast.success("Signed in successfully"); // Toast message for successful login
+            toast.success("Signed in as " + authDict[email] + " successfully"); // Toast message for successful login
             setEmail(""); // Clear email field
             setPassword(""); // Clear password field
         } catch(err) {
