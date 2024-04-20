@@ -2,6 +2,8 @@ import UF_Logo from '../images/uf.png';
 import { Link, useLocation } from 'react-router-dom';
 import { auth } from "../config/firebase";
 import { useState, useEffect } from "react";
+import { db } from "../config/firebase";
+import { collection, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -10,6 +12,8 @@ export const Navbar = () => {
   const location = useLocation();
 
   const [currentUserEmail, setCurrentUserEmail] = useState("Student");
+  const [queueSize, setQueueSize] = useState(0);  // State to hold the queue size
+
   useEffect(() => {
     const authDict = {
       "cise_tutor@ufl.edu": "Tutor",
@@ -22,6 +26,14 @@ export const Navbar = () => {
             setCurrentUserEmail("Student");
         }
     });
+
+    const fetchQueueSize = async () => {
+      const queueRef = collection(db, "queue");  // Adjust "queue" to your specific collection name
+      const snapshot = await getDocs(queueRef);
+      setQueueSize(snapshot.size);  // Set the queue size based on the number of documents
+    };
+
+    fetchQueueSize();
 
     return () => unsubscribe();
 }, []);
@@ -108,7 +120,7 @@ export const Navbar = () => {
               <div className="dropdown-divider" />
               <a className="dropdown-item" href="/waitlist">
                 View Waitlist{" "}
-                <span className="badge bg-primary rounded-pill ms-auto">4</span>
+                <span className="badge bg-primary rounded-pill ms-auto">{queueSize}</span>
               </a>
             </div>
           </li>
