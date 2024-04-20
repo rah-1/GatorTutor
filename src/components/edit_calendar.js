@@ -26,6 +26,14 @@ function EditCalendar() {
         setEndDate(end);
     };
 
+    const resetForm = () => {
+        setStartDate(null);
+        setEndDate(null);
+        setHoliday(null);
+        setSelectedTutor(null);
+        setAvailabilityReason(null);
+    };
+
     const handleHolidayChange = (date) => {
         setHoliday(date); // Update holiday state
     };
@@ -45,16 +53,16 @@ function EditCalendar() {
     const isTutor = currentUserEmail === "Tutor";
 
     const handleSaveClick = () => {
-        if (isAdmin) {
-            if (startDate && endDate) {
-                const calendarSettingsRef = doc(db, "operational_dates", "YHnd5VDYpS3kStkbREi1");
-    
-                updateDoc(calendarSettingsRef, {
-                    startDate: Timestamp.fromDate(new Date(startDate)),
-                    endDate: Timestamp.fromDate(new Date(endDate))
-                })
-                .then(() => {
-                    if (!holiday) {
+    if (isAdmin) {
+        if (startDate && endDate) {
+            const calendarSettingsRef = doc(db, "operational_dates", "YHnd5VDYpS3kStkbREi1");
+
+            updateDoc(calendarSettingsRef, {
+                startDate: Timestamp.fromDate(new Date(startDate)),
+                endDate: Timestamp.fromDate(new Date(endDate))
+            })
+            .then(() => {
+                if (!holiday) {
                     toast.success("Changes saved successfully!", {
                         position: "bottom-center",
                         autoClose: 5000,
@@ -64,51 +72,11 @@ function EditCalendar() {
                         draggable: true,
                         progress: undefined,
                     });
+                    resetForm();  // Reset form here
                 }
-                })
-                .catch(error => {
-                    toast.error("Error saving changes: " + error.message, {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                });
-            }
-            if (holiday) {
-                const holidaysRef = collection(db, "holidays");
-    
-                addDoc(holidaysRef, {
-                    date: Timestamp.fromDate(new Date(holiday))
-                })
-                .then(() => {
-                    toast.success("Changes saved successfully!", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                })
-                .catch(error => {
-                    toast.error("Error adding holiday: " + error.message, {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                });
-            }
-            else {
-                toast.info("Please add a tutoring holiday or adjust semester tutoring dates(s) before saving.", {
+            })
+            .catch(error => {
+                toast.error("Error saving changes: " + error.message, {
                     position: "bottom-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -117,24 +85,55 @@ function EditCalendar() {
                     draggable: true,
                     progress: undefined,
                 });
-            }
-        } else if (isTutor) {
-            if (selectedTutor && availabilityReason && startDate && endDate) {
-                const start = new Date(startDate);
-                const end = new Date(endDate);
-                let date = new Date(start); // Start from the start date
-                let one_suc = true;
-                while (date <= end) {
-                    const updatesRef = collection(db, "avail_updates");
-        
-                    addDoc(updatesRef, {
-                        change: availabilityReason,
-                        name: selectedTutor,
-                        date: Timestamp.fromDate(new Date(date)) // Use a new Date object to ensure immutability
-                    }).then(() => {
-                        if (one_suc) 
-                        {
-                            one_suc = false;
+            });
+        }
+        if (holiday) {
+            const holidaysRef = collection(db, "holidays");
+
+            addDoc(holidaysRef, {
+                date: Timestamp.fromDate(new Date(holiday))
+            })
+            .then(() => {
+                toast.success("Holiday added successfully!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                resetForm();  // Reset form here
+            })
+            .catch(error => {
+                toast.error("Error adding holiday: " + error.message, {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+    } else if (isTutor) {
+        if (selectedTutor && availabilityReason && startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            let date = new Date(start);
+            let updatesMade = false;
+
+            while (date <= end) {
+                const updatesRef = collection(db, "avail_updates");
+
+                addDoc(updatesRef, {
+                    change: availabilityReason,
+                    name: selectedTutor,
+                    date: Timestamp.fromDate(new Date(date))
+                }).then(() => {
+                    if (!updatesMade) {
+                        updatesMade = true;
                         toast.success(`Availability updated successfully!`, {
                             position: "bottom-center",
                             autoClose: 5000,
@@ -144,24 +143,26 @@ function EditCalendar() {
                             draggable: true,
                             progress: undefined,
                         });
+                        resetForm();  // Reset form here
                     }
-                    }).catch(error => {
-                        toast.error(`Error updating availability: ${error.message}`, {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                }).catch(error => {
+                    toast.error(`Error updating availability: ${error.message}`, {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
                     });
-        
-                    date.setDate(date.getDate() + 1); // Move to the next day
-                }
+                });
+
+                date.setDate(date.getDate() + 1);
             }
         }
-    };
+    }
+};
+
     
     
     
