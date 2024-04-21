@@ -6,7 +6,7 @@ import { auth } from "../config/firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { db } from "../config/firebase";
-import { Timestamp, doc, updateDoc, addDoc, collection } from 'firebase/firestore'; // Importing Timestamp directly from firestore module
+import { Timestamp, doc, updateDoc, addDoc, collection, getDocs } from 'firebase/firestore'; // Importing Timestamp directly from firestore module
 
 
 
@@ -18,6 +18,8 @@ function EditCalendar() {
     const [holiday, setHoliday] = useState(null); // New state for single holiday selection
     const [selectedTutor, setSelectedTutor] = useState(null); // State variable for selected tutor
     const [availabilityReason, setAvailabilityReason] = useState(null); // State variable for availability change reason
+    const [tutors, setTutors] = useState([]);
+
 
 
     const handleChange = (dates) => {
@@ -37,20 +39,35 @@ function EditCalendar() {
     const handleHolidayChange = (date) => {
         setHoliday(date); // Update holiday state
     };
+    
+
+    const isAdmin = currentUserEmail === "Admin";
+    const isTutor = currentUserEmail === "Tutor";
 
     useEffect(() => {
         const authDict = {
-          "cise_tutor@ufl.edu": "Tutor",
-          "cise_admin@ufl.edu": "Admin"
+            "cise_tutor@ufl.edu": "Tutor",
+            "cise_admin@ufl.edu": "Admin"
         };
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setCurrentUserEmail(user ? (authDict[user.email] || "Student") : "Student");
         });
-        return () => unsubscribe();
-    }, []);
 
-    const isAdmin = currentUserEmail === "Admin";
-    const isTutor = currentUserEmail === "Tutor";
+        const fetchTutors = async () => {
+            const tutorList = [];
+            const tutorsRef = collection(db, "tutors");
+            const snapshot = await getDocs(tutorsRef);
+            snapshot.forEach(doc => {
+                tutorList.push(doc.data().name);
+            });
+            setTutors(tutorList);
+        };
+
+        fetchTutors();
+
+        return () => unsubscribe();
+    }, []); // Empty dependency array ensures this runs only once on component mount
+
 
     const handleSaveClick = () => {
     if (isAdmin) {
@@ -189,16 +206,16 @@ function EditCalendar() {
             __html:
                 `
                 .btn.btn-outline-dark {
-                    color: #28a745; /* Green text color to match the border */
+                    color: #00529b; /* Green text color to match the border */
                     background-color: #fff; /* White background initially */
-                    border-color: #28a745; /* Green border */
+                    border-color: #00529b; /* Green border */
                     
                 }
                 
                 .btn.btn-outline-dark:hover {
                     color: #fff; /* White text on hover */
-                    background-color: #28a745; /* Green background on hover */
-                    border-color: #28a745; /* Green border on hover */
+                    background-color: #00529b; /* Green background on hover */
+                    border-color: #00529b; /* Green border on hover */
                 }
 
                 .form-select {
@@ -218,8 +235,8 @@ function EditCalendar() {
           <div className="container mt-4">
             <h1 className="display-3 text-center mb-4">Edit Calendar</h1>
             <div className="row">
-                <div className={`col-md-6 ${!isAdmin && "bg-light"}`}>
-                    <div className={`panel rounded border p-3 mb-3 ${!isAdmin && "opacity-50"}`}>
+                <div className={`col-md-6 ${!isAdmin && "bg-light opacity-50"}`}>
+                <div className={`panel rounded border ${isAdmin ? "shadow" : ""} p-3 mb-3`}>
                         <h2 className="text-center">Admin Panel</h2>
                         {isAdmin ? (
                             <>
@@ -250,17 +267,18 @@ function EditCalendar() {
                     </div>
                 </div>
                 <div className={`col-md-6 ${!isTutor && "bg-light opacity-50"}`}>
-                <div className="panel rounded border p-3 mb-3">
+                <div className={`panel rounded border ${isTutor ? "shadow" : ""} p-3 mb-3`}>
                 <h2 className="text-center">Tutors Panel</h2>
                         {!isAdmin || isTutor ? (
                             <>
                                 <p>Change tutor availability:</p>
-                                <select className="form-select" id="inputGroupSelect01" style={{ width: '75%', margin: 'auto' }} onChange={handleTutorChange}>
-                                    <option value="" selected disabled>Select tutor</option>
-                                    <option value={"Boe Zoe"}>Boe Zoe</option>
-                                    <option value={"Abby Pen"}>Abby Pen</option>
-                                    <option value={"Rahul Chari"}>Rahul Chari</option>
+                                <select className="form-select" value={selectedTutor || ''} onChange={handleTutorChange} style={{ width: '75%', margin: 'auto' }}>
+                                    <option value="" disabled>Select tutor</option>
+                                    {tutors.map(tutor => (
+                                        <option key={tutor} value={tutor}>{tutor}</option>
+                                    ))}
                                 </select>
+
 
                                 <input type="text" className="form-control mt-2" placeholder="Describe availability change" style={{ width: '75%', margin: 'auto' }} onChange={handleReasonChange} />
 
