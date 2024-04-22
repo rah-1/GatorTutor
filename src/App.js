@@ -12,6 +12,7 @@ import { Waitlist2 } from './components/view_waitlist3';
 import {Tutors2} from './components/tutors2';
 import {Tutors3} from './components/tutors3';
 import EditCalendar from './components/edit_calendar';
+import Analytics from './components/analytics';
 function App() {
   return (
     <div className="App">
@@ -29,6 +30,7 @@ function App() {
           <Route path="/waitlist2" element={<Waitlist />} />
           <Route path="/tutors2" element={<Tutors2 />} />
           <Route path="/tutors3" element={<Tutors3 />} />
+          <Route path="/analytics" element={<Analytics />} />
         </Routes>
       </Router>
     </div>

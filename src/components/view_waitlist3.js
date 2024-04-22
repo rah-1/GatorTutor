@@ -106,7 +106,7 @@ export const Waitlist2 = () => {
               <th scope="col">Check-In Time</th>
               <th scope="col">Requested Tutor</th>
               <th scope="col">Requested Course</th>
-              <th scope="col">Estimated Time</th>
+              <th scope="col">Session Duration</th>
               {isAdminOrTutor && <th scope="col"></th>}
             </tr>
           </thead>

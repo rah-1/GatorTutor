@@ -21,7 +21,7 @@ export const Resources = () => {
     }}
   />
   <Navbar/>
-  <div className="container-md shadow rounded border" style={{ width: "70%" }}>
+  <div className="container-md shadow rounded border" style={{ width: "70%", marginTop: "20px", marginBottom: "25px", paddingBottom: "20px" }}>
     {/* List group */}
     <ul className="nav nav-tabs">
       <li className="nav-item ">
@@ -295,7 +295,6 @@ export const Resources = () => {
       
     </div>
     
-    <div style={{ height: "100px" }}></div>
 
   </div>
 </>
