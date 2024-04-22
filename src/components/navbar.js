@@ -15,6 +15,26 @@ export const Navbar = () => {
   const [queueSize, setQueueSize] = useState(0);  // State to hold the queue size
 
   useEffect(() => {
+    const fetchQueueSize = async () => {
+        const queueRef = collection(db, "queue");
+        const snapshot = await getDocs(queueRef);
+        setQueueSize(snapshot.size);
+    };
+
+    const handleWaitlistUpdate = (event) => {
+        setQueueSize(prevSize => prevSize + event.detail.size);
+    };
+
+    document.addEventListener('update-waitlist', handleWaitlistUpdate);
+    fetchQueueSize();
+
+    return () => {
+        document.removeEventListener('update-waitlist', handleWaitlistUpdate);
+    };
+}, []);
+
+
+  useEffect(() => {
     const authDict = {
       "cise_tutor@ufl.edu": "Tutor",
       "cise_admin@ufl.edu": "Admin"
@@ -27,13 +47,6 @@ export const Navbar = () => {
         }
     });
 
-    const fetchQueueSize = async () => {
-      const queueRef = collection(db, "queue");  // Adjust "queue" to your specific collection name
-      const snapshot = await getDocs(queueRef);
-      setQueueSize(snapshot.size);  // Set the queue size based on the number of documents
-    };
-
-    fetchQueueSize();
 
     return () => unsubscribe();
 }, []);

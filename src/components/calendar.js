@@ -164,8 +164,29 @@ function Calendar() {
     const selectedDate = format(new Date(arg.start), 'yyyy-MM-dd');
     setCurrDay(getCurrentDate(arg.start));
     const changesForDay = availabilityChanges.get(selectedDate);
+    const eventsForDay = events.filter(event => format(new Date(event.start), 'yyyy-MM-dd') === selectedDate);
     
+    if (eventsForDay.length === 0) {
+        setSelectedEvent(null);
+    } else {
+        setSelectedEvent({
+            title: eventsForDay[0].title,
+            startTime: new Date(eventsForDay[0].start).toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            }),
+            endTime: new Date(eventsForDay[0].end).toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            }),
+            changes: changesForDay || []
+        });
+    }
 };
+
+
 
 const handleEventClick = (arg) => {
     const event = arg.event;
@@ -218,14 +239,27 @@ const handleEventClick = (arg) => {
             flex: 1;
           }
 
-.left-justified-indented {
-    text-align: left;
-    padding-left: 20px; /* Adjust the indentation as needed */
-}
+          .left-justified-indented {
+              text-align: left;
+              padding-left: 20px; /* Adjust the indentation as needed */
+          }
 
-.centered-text {
-    text-align: center;
-}
+          .centered-text {
+              text-align: center;
+          }
+
+          .btn.btn-outline-dark {
+            color: #00529b; /* Green text color to match the border */
+            background-color: #fff; /* White background initially */
+            border-color: #00529b; /* Green border */
+            
+        }
+        
+        .btn.btn-outline-dark:hover {
+            color: #fff; /* White text on hover */
+            background-color: #00529b; /* Green background on hover */
+            border-color: #00529b; /* Green border on hover */
+        }
           
           `
         }}
@@ -255,21 +289,23 @@ const handleEventClick = (arg) => {
     <h1 className="display-6" style={{ margin: 20 }}>
         Tutoring on {currDay}
     </h1>
-    {selectedEvent && (
-        <div style={{ margin: 20 }}>
-            <p className="left-justified-indented"><strong>Mode:</strong> {selectedEvent.title}</p>
-            <p className="left-justified-indented"><strong>Start Time:</strong> {selectedEvent.startTime}</p>
-            <p className="left-justified-indented"><strong>End Time:</strong> {selectedEvent.endTime}</p>
-            {selectedEvent.changes.length > 0 ? (
-                <div>
-                    <h2 className="display-6 centered-text" style={{ marginBottom: '20px' }}>Availability Changes</h2>
-                    {selectedEvent.changes.map((change, index) => (
-                        <p key={index} className="left-justified-indented"><strong>{change.name}:</strong> {change.change}</p>
-                    ))}
+    {selectedEvent ? (
+                <div style={{ margin: 20 }}>
+                    <p className="left-justified-indented"><strong>Mode:</strong> {selectedEvent.title}</p>
+                    <p className="left-justified-indented"><strong>Start Time:</strong> {selectedEvent.startTime}</p>
+                    <p className="left-justified-indented"><strong>End Time:</strong> {selectedEvent.endTime}</p>
+                    {selectedEvent.changes.length > 0 && (
+                        <div>
+                            <h2 className="display-6 centered-text" style={{ marginBottom: '20px' }}>Availability Changes</h2>
+                            {selectedEvent.changes.map((change, index) => (
+                                <p key={index} className="left-justified-indented"><strong>{change.name}:</strong> {change.change}</p>
+                            ))}
+                        </div>
+                    )}
                 </div>
-            ) : null}
-        </div>
-    )}
+            ) : (
+                <p className="centered-text" style={{ margin: 20 }}>No tutoring available.</p>
+            )}
     <div className="text-center">
         {currentUserEmail === 'Admin' || currentUserEmail === 'Tutor' ? (
             <Link to="/edit-calendar" className="btn btn-outline-dark">Edit Calendar</Link>
