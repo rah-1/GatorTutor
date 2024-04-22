@@ -163,7 +163,8 @@ export const Navbar = () => {
             >
               Resources
             </a>
-          </li>
+          </li> 
+          {/*
           <li className="nav-item">
           <a
               className="nav-link navop"
@@ -172,7 +173,8 @@ export const Navbar = () => {
             >
               Analytics
             </a>
-          </li>
+          </li> 
+          */}
         </ul>
         <Link to="/auth" className="nav-link navop ms-auto" style={{ paddingRight: "20px" }}>
           Hi,  {currentUserEmail}!
