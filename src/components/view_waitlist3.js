@@ -1,109 +1,122 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from "firebase/firestore";
-import { Navbar } from "./navbar"
-import { db } from "../config/firebase";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { Navbar } from "./navbar";
+import { db, auth } from "../config/firebase";
 import Table from 'react-bootstrap/Table';
+import { FaEnvelope, FaTimes } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import emailjs from 'emailjs-com';
 
-const getInitials = (firstName, lastName) => {
-  const firstInitial = firstName.charAt(0).toUpperCase();
-  const firstInitial2 = firstName.charAt(1).toLowerCase();
-  const lastInitial = lastName.charAt(0).toUpperCase();
-  const lastInitial2 = lastName.charAt(1).toLowerCase();
-  return `${firstInitial}${firstInitial2} ${lastInitial}${lastInitial2}`;
-};
+function WaitlistItem({ item, index, isAdminOrTutor, onDelete }) {
+  const getInitials = (firstName, lastName) => {
+    return `${firstName.charAt(0).toUpperCase()}${firstName.slice(1, 2).toLowerCase()} ${lastName.charAt(0).toUpperCase()}${lastName.slice(1, 2).toLowerCase()}`;
+  };
 
-const getTime = (time) => {
-  const timestamp = time.seconds * 1000;
-  const date = new Date(timestamp);
-  const etTime = date.toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
-  return etTime;
-};
+  const getTime = (time) => {
+    const date = new Date(time.seconds * 1000);
+    return date.toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
+  };
 
-function WaitlistItem ({ item, index }) {
+  const sendEmail = () => {
+    const templateParams = {
+      to_email: item.email,
+      to_name: `${item.first} ${item.last}`,
+      message: "Your tutoring session is ready! Please join your session here:\nhttps://ufl.zoom.us/j/2132439736", // Customize your message or add more parameters
+    };
 
-  const initials = getInitials(item.first, item.last);
-  const time = getTime(item.time);
+    emailjs.send('service_8lcffmn', 'template_6hvcgor', templateParams, 'MIktgyoKvQSNMj_Qg')
+      .then((response) => {
+        console.log('Email successfully sent!', response.status, response.text);
+        toast.success(`Email sent to ${item.first} ${item.last}!`);
+      }, (err) => {
+        console.error('Failed to send the email:', err);
+        toast.error("Failed to send email.");
+      });
+  };
+
   return (
-
     <tr>
-        <td>#{index}</td>
-        <td>{initials}</td>
-        <td>{time}</td>
-        <td>{item.pref_tutor}</td>
-        <td>{item.subject}</td>
-        <td>{item.ets} minutes</td>
+      <td>#{index}</td>
+      <td>{getInitials(item.first, item.last)}</td>
+      <td>{getTime(item.time)}</td>
+      <td>{item.pref_tutor}</td>
+      <td>{item.subject}</td>
+      <td>{item.ets} minutes</td>
+      {isAdminOrTutor && (
+        <td>
+          <FaEnvelope style={{ cursor: 'pointer', marginRight: '10px' }} onClick={sendEmail} />
+          <FaTimes style={{ cursor: 'pointer', color: 'red' }} onClick={() => onDelete(item.id, item.first, item.last)} />
+        </td>
+      )}
     </tr>
-    
   );
 }
 
 
 export const Waitlist2 = () => {
   const [items, setItems] = useState([]);
+  const [isAdminOrTutor, setIsAdminOrTutor] = useState(false);
 
-  const fetchPost = async () => {
-       
-    await getDocs(collection(db, "queue"))
-        .then((querySnapshot)=>{               
-            const newData = querySnapshot.docs
-                .map((doc) => ({...doc.data(), id:doc.id }));
-            setItems(newData);                
-            console.log(items, newData);
-        })
-   
-    }
+  const authDict = {
+    "cise_tutor@ufl.edu": "Tutor",
+    "cise_admin@ufl.edu": "Admin"
+  };
+  
 
   useEffect(() => {
+    const fetchPosts = async () => {
+      const querySnapshot = await getDocs(collection(db, "queue"));
+      const fetchedItems = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      // Sort items by time
+      fetchedItems.sort((a, b) => a.time.seconds - b.time.seconds);
+      setItems(fetchedItems);
+    };
 
-    fetchPost();
-    
-  }, []);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      const isAuthorized = user && (authDict[user.email] === 'Admin' || authDict[user.email] === 'Tutor');
+      setIsAdminOrTutor(isAuthorized);
+    });
+
+    fetchPosts();
+    return () => unsubscribe();
+}, []);
+
+
+  const handleDelete = async (id, firstName, lastName) => {
+    try {
+      await deleteDoc(doc(db, "queue", id));
+      setItems(items.filter(item => item.id !== id));
+      toast.success(`${firstName} ${lastName} removed from queue.`);
+    } catch (error) {
+      toast.error("Failed to delete entry.");
+    }
+  };
 
   return (
-
-    <>    
-
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossOrigin="anonymous"
-      />
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            "\n.team-member {\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n  margin: 20px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n\n}\n.team-member row {\n  display: flex;\n}\n\n.nav-tabs .nav-item .nav-link{\npadding-right: 0.75rem; /* Adjust the right margin */\npadding-left: 0.75rem;\ncolor: #00529b !important;\n}\n\n.team-member col {\n  flex: 1;\n  padding: 20px;\n}\n.grid {\ndisplay: grid;\ngrid-auto-rows: auto;\nmax-width: 100vw;\ngrid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n}\n.team-member img {\n  width: 50%;\n  height: 9.5rem;\n  border-radius: 50%;\n  margin-bottom: 10px;\n}\n\n.team-member .tab-content{\n\nmargin-top: 0.75rem;\n\n}\n\n.team-member h2 {\n  margin-top: 0;\n}\n\n.navop2 {\nborder: 1px solid black;\n}\n\n\n.logo {\n  width: 8% !important;\n  height: auto !important;\n}\n\n.waitlist > * {\n  text-align: center;\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n  border: 1px solid black;\n}\n\n.waitlist {\n  margin-top: 0.5rem;\n  border-radius: 6px;\n}\n\n.test {\n  padding-left: 0px !important;\n  padding-top: 0px !important;\n  padding-bottom: 0px !important;\n  padding-right: 0px !important;\n}\n\n.pgtitle {\n  color: #00529b;\n}\n\n.cont {\n  align-items: stretch;\n  }\n\n.item {\n  flex:  1;\n  /* Optional: Add additional styling as needed */\n  }\n\n.cont2 {\n  align-items: stretch;\n}\n\n.item2 {\n  flex:  1;\n  display: flex;\n  align-items: center;\n  flex-grow: 1;\n  width: 100%;\n  /* Optional: Add additional styling as needed */\n  }\n\n  .navbar-color {\n      background: #00529b;\n  }\n\n  .navop {\n  /* border: 2px solid black; */\n  margin-right: 30px;\n  border-radius: 6px;\n  color: #fff !important;\n  background-color: #00529b ;\n  \n  }\n\n  .rounded-pill {\n    background-color: #00529b !important;\n  }\n\n.navop:hover {\n transition: 0s ;\n background-color: #f37021 ;\n /* color: #00529b !important; */\n}\n\n.navop:active {\n /* background-color: #f37021; */\n transition: 0s ;\n background-color: rgba(243, 112, 33, 0.7);\n /* color: #00529b !important; */\n}\n\n.navbar {\n  \n  font-weight: bold;\n}\n\n.badge.bg-dark {\n\nbackground-color: #00529b !important;\n}\n\n.badge.btn.btn-outline-dark\n{\ncolor: #00529b;\nborder-color: #00529b;\n}\n\n.badge.btn.btn-outline-dark:hover\n{\ncolor: white;\nbackground-color: #00529b;\n}\n\n.title-background {\nbackground: white;\n}\n"
-        }}
-      />
-<Navbar /> {/* Include the Navbar component here */}
-      <div className="container-md " style={{ width: "70%" }}>
-    {/* List group */}
-    <div className="container mt-4">
-      <h1 className="display-3" style={{ margin: 20, textAlign: "center" }}>
-        Active Waitlist
-      </h1>
-      
-      <Table hover bordered>
-        <thead>
-          <tr>
-            <th scope="col">Position</th>
-            <th scope="col">Initials</th>
-            <th scope="col">Check-In Time</th>
-            <th scope="col">Requested Tutor</th>
-            <th scope="col">Requested Course</th>
-            <th scope="col">Estimated Time of Session</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          {items.map((item, index) => (
-            <WaitlistItem key={item.id} item={item} index={index + 1} />
-          ))}
-        </tbody>
-      </Table>
-    </div>
-    </div>
-
+    <>
+      <ToastContainer position="bottom-center" autoClose={5000} />
+      <Navbar />
+      <div className="container-md" style={{ width: "70%" }}>
+        <h1 className="display-3" style={{ margin: 20, textAlign: "center" }}>Active Waitlist</h1>
+        <Table hover bordered>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Initials</th>
+              <th scope="col">Check-In Time</th>
+              <th scope="col">Requested Tutor</th>
+              <th scope="col">Requested Course</th>
+              <th scope="col">Estimated Time</th>
+              {isAdminOrTutor && <th scope="col"></th>}
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, index) => (
+              <WaitlistItem key={item.id} item={item} index={index + 1} isAdminOrTutor={isAdminOrTutor} onDelete={handleDelete} />
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 };

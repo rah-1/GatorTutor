@@ -77,6 +77,7 @@ function Calendar() {
 }, []);
 
   useEffect(() => {
+    
     const authDict = {
       "cise_tutor@ufl.edu": "Tutor",
       "cise_admin@ufl.edu": "Admin"
@@ -106,7 +107,11 @@ function Calendar() {
       }
     };
 
+    
     fetchDates();
+
+    const today = new Date();
+    handleDateSelect({ start: today });
   }, []);
 
 
@@ -147,6 +152,8 @@ function Calendar() {
           });
   
           setEvents(eventsData);
+
+          
         } catch (error) {
           console.error("Error fetching operational hours:", error);
         }

@@ -140,7 +140,7 @@ export const EnterWaitlist = () => {
                             <div className="input-group mb-3">
                                 <label className="input-group-text" htmlFor="inputGroupSelect01">Requested Tutor</label>
                                 <select className="form-select" id="inputGroupSelect01" value={prefTutor} onChange={e => setPrefTutor(e.target.value)}>
-                                    <option value="none">No preference</option>
+                                    <option value="None">No preference</option>
                                     {tutors.map((tutor, index) => (
                                         <option key={index} value={tutor}>{tutor}</option>
                                     ))}
