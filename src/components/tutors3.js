@@ -683,9 +683,16 @@ export const Tutors3 = () => {
     
   }, []);
 
-  const handleDefault = () => {
+  const handleDefault = async () => {
     // Toggle between showing the default tutor card and the button
     setDefault(!Default);
+    let singleDoc;    
+    const querySnapshot2 = await getDocs(collection(db, "default_tutor"));
+    querySnapshot2.forEach((doc) => {
+      // Assuming there's only one document in the collection
+      singleDoc = { id: doc.id, ...doc.data() };
+    });
+    setDefaultItem(singleDoc);
   };
 
   return (
